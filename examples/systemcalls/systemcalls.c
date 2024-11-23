@@ -1,4 +1,10 @@
 #include "systemcalls.h"
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <fcntl.h>
+
 
 /**
  * @param cmd the command to execute with system()
@@ -16,8 +22,10 @@ bool do_system(const char *cmd)
  *   and return a boolean true if the system() call completed with success
  *   or false() if it returned a failure
 */
+    int status = system(cmd);
 
-    return true;
+    return WIFEXITED(status);
+
 }
 
 /**
@@ -59,9 +67,45 @@ bool do_exec(int count, ...)
  *
 */
 
+    pid_t pid = 0;
+    pid = fork();
+    int status; 
+    bool retval = false; 
+
+    if(pid == -1)
+    {
+        perror("Fork error");
+        return false;
+    }
+
+    if(pid == 0) /* child process */
+    {
+        execv(command[0], command);
+        perror("child Execv error");
+        // printf("#error exeStatus is %d\n", exeStatus);
+        exit(EXIT_FAILURE);
+
+
+    }
+    else /* parent process */
+    {
+        waitpid(pid, &status, 0);
+        printf("Child process exited with status %d, --> %d\n", status, WEXITSTATUS(status));
+        if (WIFEXITED(status))
+        {
+            retval = WEXITSTATUS(status)?false:true ; 
+        }
+        else
+        {
+            retval = false;
+        }
+        printf("#error: retval is %d\n", retval );
+
+    }
+
     va_end(args);
 
-    return true;
+    return retval;
 }
 
 /**
@@ -93,7 +137,55 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
  *
 */
 
+ pid_t pid = 0;
+    pid = fork();
+    int status; 
+    bool retval = false; 
+
+    if(pid == -1)
+    {
+        perror("Fork error");
+        return false;
+    }
+
+    if(pid == 0) /* child process */
+    {
+        int fd = open(outputfile, O_WRONLY|O_TRUNC|O_CREAT, 0644);
+        dup2(fd, 1);
+        close(fd);
+        execv(command[0], command);
+        perror("child Execv error");
+        exit(EXIT_FAILURE);
+
+
+    }
+    else /* parent process */
+    {
+        waitpid(pid, &status, 0);
+
+        if (WIFEXITED(status))
+        {
+            retval = WEXITSTATUS(status)?false:true ; 
+        }
+        else
+        {
+            retval = false;
+        }
+    }
+
     va_end(args);
 
-    return true;
+    return retval;
 }
+
+#define OSAMA 0
+#if OSAMA
+
+int main (void)
+{
+    int status = system("/usr/bin/test -f echo");
+
+    bool ret = do_exec(3, "/usr/bin/test","-f", "fuck");
+    return 0;
+}
+#endif

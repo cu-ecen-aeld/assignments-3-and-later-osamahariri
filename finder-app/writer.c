@@ -4,7 +4,7 @@
 
 
 
-int main(int argc, const char** argv[])
+int main(int argc, char** argv)
 {
     openlog("WriterDebug", 0, LOG_USER);
 
