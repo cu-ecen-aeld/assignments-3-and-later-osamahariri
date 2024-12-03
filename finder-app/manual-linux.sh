@@ -41,10 +41,10 @@ mkdir -p usr/bin usr/lib usr/sbin
 mkdir -p home/conf
 
 # TODO: Add library dependencies to rootfs
-rtenvpath=$(find / -name ld-linux-aarch64.so.1 2>/dev/null)
-libmpath=$(find / -name libm.so.6 2>/dev/null)
-libresovpath=$(find / -name libresolv.so.2 2>/dev/null)
-libcpath=$(find / -name libc.so.6 2>/dev/null)
+rtenvpath=/usr/local/arm-cross-compiler/install/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1
+libmpath=/usr/local/arm-cross-compiler/install/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libm.so.6 
+libresovpath=/usr/local/arm-cross-compiler/install/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libresolv.so.2
+libcpath=/usr/local/arm-cross-compiler/install/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libc.so.6
 
 echo ${rtenvpath}
 echo ${libmpath}
