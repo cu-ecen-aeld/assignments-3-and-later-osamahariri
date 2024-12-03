@@ -41,14 +41,15 @@ mkdir -p usr/bin usr/lib usr/sbin
 mkdir -p home/conf
 
 # TODO: Add library dependencies to rootfs
-echo "#debug osama 112233"
-find / -name ld-linux-aarch64.so.1 2>/dev/null
-echo "#debug osama 332211"
+rtenvpath=$(find / -name ld-linux-aarch64.so.1 2>/dev/null)
+libmpath=$(find / -name libm.so.6 2>/dev/null)
+libresovpath=$(find / -name libresolv.so.2 2>/dev/null)
+libcpath=$(find / -name libc.so.6 2>/dev/null)
 
-cp "/home/osama/lib/ld-linux-aarch64.so.1" "${OUTDIR}/rootfs/lib/"
-cp "/home/osama/lib/libm.so.6" "${OUTDIR}/rootfs/lib64/"
-cp "/home/osama/lib/libresolv.so.2" "${OUTDIR}/rootfs/lib64/"
-cp "/home/osama/lib/libc.so.6" "${OUTDIR}/rootfs/lib64/"
+cp ${rtenvpath} "${OUTDIR}/rootfs/lib/"
+cp ${libmpath} "${OUTDIR}/rootfs/lib64/"
+cp ${libresovpath} "${OUTDIR}/rootfs/lib64/"
+cp ${libcpath} "${OUTDIR}/rootfs/lib64/"
 
 
 cd "$OUTDIR"
