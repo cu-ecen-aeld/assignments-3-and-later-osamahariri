@@ -5,7 +5,7 @@
 set -e
 set -u
 
-export PATH=$PATH:/home/osama/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/bin
+export PATH=$PATH:/tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/bin
 
 OUTDIR=/tmp/aeld
 KERNEL_REPO=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
@@ -99,14 +99,14 @@ ${CROSS_COMPILE}readelf -a bin/busybox | grep "program interpreter"
 ${CROSS_COMPILE}readelf -a bin/busybox | grep "Shared library"
 
 # TODO: Add library dependencies to rootfs
-cp /home/osama/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1 ./lib
-cp /home/osama/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libm.so.6 ./lib64
-cp /home/osama/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libresolv.so.2 ./lib64
-cp /home/osama/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libc.so.6 ./lib64
+cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1 ./lib
+cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libm.so.6 ./lib64
+cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libresolv.so.2 ./lib64
+cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libc.so.6 ./lib64
 
 # TODO: Make device nodes
-mknod -m 666 ./dev/null c 1 3
-mknod -m 666 ./dev/console c 5 1 
+sudo mknod -m 666 ./dev/null c 1 3
+sudo mknod -m 666 ./dev/console c 5 1 
 
 # TODO: Clean and build the writer utility
 cd /home/osama/Desktop/coursera/buildrootCourse/assignment-1-osamahariri/finder-app
