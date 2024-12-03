@@ -41,6 +41,10 @@ mkdir -p usr/bin usr/lib usr/sbin
 mkdir -p home/conf
 
 # TODO: Add library dependencies to rootfs
+echo "#debug osama 112233"
+find / -name ld-linux-aarch64.so.1 2>/dev/null
+echo "#debug osama 332211"
+
 cp "/home/osama/lib/ld-linux-aarch64.so.1" "${OUTDIR}/rootfs/lib/"
 cp "/home/osama/lib/libm.so.6" "${OUTDIR}/rootfs/lib64/"
 cp "/home/osama/lib/libresolv.so.2" "${OUTDIR}/rootfs/lib64/"
