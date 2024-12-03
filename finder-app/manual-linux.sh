@@ -46,6 +46,11 @@ libmpath=$(find / -name libm.so.6 2>/dev/null)
 libresovpath=$(find / -name libresolv.so.2 2>/dev/null)
 libcpath=$(find / -name libc.so.6 2>/dev/null)
 
+echo ${rtenvpath}
+echo ${libmpath}
+echo ${libresovpath}
+echo ${libcpath}
+
 cp ${rtenvpath} "${OUTDIR}/rootfs/lib/"
 cp ${libmpath} "${OUTDIR}/rootfs/lib64/"
 cp ${libresovpath} "${OUTDIR}/rootfs/lib64/"
