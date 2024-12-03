@@ -99,10 +99,10 @@ ${CROSS_COMPILE}readelf -a bin/busybox | grep "program interpreter"
 ${CROSS_COMPILE}readelf -a bin/busybox | grep "Shared library"
 
 # TODO: Add library dependencies to rootfs
-cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1 ./lib
-cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libm.so.6 ./lib64
-cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libresolv.so.2 ./lib64
-cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libc.so.6 ./lib64
+cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1 ${OUTDIR}/rootfs/lib/
+cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libm.so.6 ${OUTDIR}/rootfs/lib64/
+cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libresolv.so.2 ${OUTDIR}/rootfs/lib64/
+cp /tmp/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libc.so.6 ${OUTDIR}/rootfs/lib64/
 
 # TODO: Make device nodes
 sudo mknod -m 666 ./dev/null c 1 3
@@ -117,12 +117,12 @@ make CROSS_COMPILE=aarch64-none-linux-gnu- all
 # TODO: Copy the finder related scripts and executables to the /home directory
 # on the target rootfs
 
-cp ./finder.sh ${OUTDIR}/rootfs/home
-cp -r ./conf/username.txt ${OUTDIR}/rootfs/home/conf
-cp -r ./conf/assignment.txt  ${OUTDIR}/rootfs/home/conf
-cp ./finder-test.sh ${OUTDIR}/rootfs/home
-cp ./writer ${OUTDIR}/rootfs/home
-cp ./autorun-qemu.sh ${OUTDIR}/rootfs/home
+cp ./finder.sh ${OUTDIR}/rootfs/home//
+cp -r ./conf/username.txt ${OUTDIR}/rootfs/home/conf/
+cp -r ./conf/assignment.txt  ${OUTDIR}/rootfs/home/conf/
+cp ./finder-test.sh ${OUTDIR}/rootfs/home/
+cp ./writer ${OUTDIR}/rootfs/home/
+cp ./autorun-qemu.sh ${OUTDIR}/rootfs/home/
 
 # TODO: Chown the root directory
 
