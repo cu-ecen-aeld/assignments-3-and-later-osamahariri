@@ -40,6 +40,19 @@ mkdir -p bin dev etc home lib lib64 proc sbin sys tmp usr var
 mkdir -p usr/bin usr/lib usr/sbin
 mkdir -p home/conf
 
+
+echo "#debug Osama112233"
+find / -name finder.sh 2>/dev/null
+find / -name username.txt 2>/dev/null
+find / -name assignment.txt 2>/dev/null
+find / -name finder-test.sh 2>/dev/null
+find / -name writer 2>/dev/null
+find / -name autorun-qemu.sh 2>/dev/null
+echo "#debug Osama332211"
+cd /home/osama/Desktop/coursera/buildrootCourse/assignment-1-osamahariri/finder-app/
+
+
+
 # TODO: Add library dependencies to rootfs
 rtenvpath=/usr/local/arm-cross-compiler/install/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1
 libmpath=/usr/local/arm-cross-compiler/install/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libm.so.6 
@@ -128,7 +141,7 @@ sudo mknod -m 666 ./dev/null c 1 3
 sudo mknod -m 666 ./dev/console c 5 1 
 
 # TODO: Clean and build the writer utility
-cd /home/osama/Desktop/coursera/buildrootCourse/assignment-1-osamahariri/finder-app
+cd /home/osama/Desktop/coursera/buildrootCourse/assignment-1-osamahariri/finder-app/
 make CROSS_COMPILE=aarch64-none-linux-gnu- clean
 echo $PATH
 make CROSS_COMPILE=aarch64-none-linux-gnu- all
@@ -136,7 +149,7 @@ make CROSS_COMPILE=aarch64-none-linux-gnu- all
 # TODO: Copy the finder related scripts and executables to the /home directory
 # on the target rootfs
 
-cp ./finder.sh ${OUTDIR}/rootfs/home//
+cp ./finder.sh ${OUTDIR}/rootfs/home/
 cp -r ./conf/username.txt ${OUTDIR}/rootfs/home/conf/
 cp -r ./conf/assignment.txt  ${OUTDIR}/rootfs/home/conf/
 cp ./finder-test.sh ${OUTDIR}/rootfs/home/
