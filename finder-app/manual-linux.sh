@@ -49,9 +49,27 @@ find / -name finder-test.sh 2>/dev/null
 find / -name writer 2>/dev/null
 find / -name autorun-qemu.sh 2>/dev/null
 echo "#debug Osama332211"
-cd /home/osama/Desktop/coursera/buildrootCourse/assignment-1-osamahariri/finder-app/
 
 
+# TODO: Clean and build the writer utility
+cd /__w/assignments-3-and-later-osamahariri/assignments-3-and-later-osamahariri/finder-app/
+ls -al
+
+make CROSS_COMPILE=aarch64-none-linux-gnu- clean
+echo $PATH
+make CROSS_COMPILE=aarch64-none-linux-gnu- all
+
+# TODO: Copy the finder related scripts and executables to the /home directory
+# on the target rootfs
+
+cp /__w/assignments-3-and-later-osamahariri/assignments-3-and-later-osamahariri/finder-app/finder.sh ${OUTDIR}/rootfs/home/
+cp /__w/assignments-3-and-later-osamahariri/assignments-3-and-later-osamahariri/conf/username.txt ${OUTDIR}/rootfs/home/conf/
+cp /__w/assignments-3-and-later-osamahariri/assignments-3-and-later-osamahariri/conf/assignment.txt  ${OUTDIR}/rootfs/home/conf/
+cp /__w/assignments-3-and-later-osamahariri/assignments-3-and-later-osamahariri/finder-app/finder-test.sh ${OUTDIR}/rootfs/home/
+cp /__w/assignments-3-and-later-osamahariri/assignments-3-and-later-osamahariri/finder-app/writer ${OUTDIR}/rootfs/home/
+cp /__w/assignments-3-and-later-osamahariri/assignments-3-and-later-osamahariri/finder-app/autorun-qemu.sh ${OUTDIR}/rootfs/home/
+
+echo "#debug Osama332211"
 
 # TODO: Add library dependencies to rootfs
 rtenvpath=/usr/local/arm-cross-compiler/install/arm-gnu-toolchain-13.3.rel1-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1
@@ -140,21 +158,7 @@ ${CROSS_COMPILE}readelf -a bin/busybox | grep "Shared library"
 sudo mknod -m 666 ./dev/null c 1 3
 sudo mknod -m 666 ./dev/console c 5 1 
 
-# TODO: Clean and build the writer utility
-cd /home/osama/Desktop/coursera/buildrootCourse/assignment-1-osamahariri/finder-app/
-make CROSS_COMPILE=aarch64-none-linux-gnu- clean
-echo $PATH
-make CROSS_COMPILE=aarch64-none-linux-gnu- all
 
-# TODO: Copy the finder related scripts and executables to the /home directory
-# on the target rootfs
-
-cp ./finder.sh ${OUTDIR}/rootfs/home/
-cp -r ./conf/username.txt ${OUTDIR}/rootfs/home/conf/
-cp -r ./conf/assignment.txt  ${OUTDIR}/rootfs/home/conf/
-cp ./finder-test.sh ${OUTDIR}/rootfs/home/
-cp ./writer ${OUTDIR}/rootfs/home/
-cp ./autorun-qemu.sh ${OUTDIR}/rootfs/home/
 
 # TODO: Chown the root directory
 
